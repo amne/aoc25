@@ -10,29 +10,7 @@ def compute_all_distances(junctions):
     distances.sort(key=lambda x: x[2])
     return distances
 
-def shortest_distance_p1(distances, circuits = []):
-    if not distances:
-        return None
-    shortest = -1
-    next_circuit = None
-    for i, j, dist in distances:
-        if len(list(filter(lambda x: i in x and j in x, circuits))) > 0:
-            continue
-        if shortest == -1 or dist < shortest:
-            shortest = dist
-            next_circuit = (i, j)
-    if shortest == -1:
-        return None
-    return (next_circuit[0], next_circuit[1], shortest)
-
-def main():
-    vec3_string = []
-    # with open("input.txt") as f:
-    with open("biginput.txt") as f:
-        for line in f:
-            vec3_string.append(line.strip().split(","))
-    junctions = [(float(x), float(y), float(z)) for x, y, z in vec3_string]
-    # [print(j) for j in junctions]
+def circuits_p1(junctions):
     distances = compute_all_distances(junctions)
     print("Distances done", len(distances))
     # print(distances)
@@ -66,6 +44,16 @@ def main():
     # print("Final circuits:", circuits)
     # print(", ".join([str(len(c)) for c in circuits]))
     print(len(circuits[0])*len(circuits[1])*len(circuits[2]))
+
+def main():
+    vec3_string = []
+    # with open("input.txt") as f:
+    with open("biginput.txt") as f:
+        for line in f:
+            vec3_string.append(line.strip().split(","))
+    junctions = [(float(x), float(y), float(z)) for x, y, z in vec3_string]
+    # [print(j) for j in junctions]
+    circuits_p1(junctions)
 
 
 if __name__ == "__main__":
